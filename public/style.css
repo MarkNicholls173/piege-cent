@@ -1,0 +1,258 @@
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1a1a2e;
+  color: #eee;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+
+#status {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  min-height: 1.5em;
+  color: #aef;
+  text-align: center;
+}
+
+/* ── Lobby ── */
+#lobby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#lobby input, #join-input {
+  padding: 10px 16px;
+  font-size: 1rem;
+  background: #16213e;
+  color: #eee;
+  border: 1px solid #4fc3f7;
+  border-radius: 6px;
+  text-align: center;
+  width: 180px;
+}
+
+#join-input {
+  letter-spacing: 3px;
+  width: 140px;
+}
+
+#room-code {
+  font-size: 2rem;
+  letter-spacing: 6px;
+  color: #4fc3f7;
+  font-weight: bold;
+}
+
+/* ── Game ── */
+#game {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#scoreboard {
+  display: flex;
+  gap: 40px;
+  font-size: 1rem;
+}
+
+.score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.score-name {
+  font-size: 0.85rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4fc3f7;
+  line-height: 1;
+}
+
+.score-block.me .score-name  { color: #81c784; }
+.score-block.me .score-value { color: #81c784; }
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(10, 52px);
+  grid-template-rows:    repeat(10, 52px);
+  gap: 3px;
+  background: #0d0d1a;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.cell {
+  width: 52px;
+  height: 52px;
+  background: #16213e;
+  border: 1px solid #2a2a4a;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: default;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.cell.valid {
+  background: #0f3460;
+  border-color: #4fc3f7;
+  cursor: pointer;
+}
+.cell.valid:hover { background: #1565c0; }
+
+.cell.last {
+  background: #2d6a2d;
+  border-color: #81c784;
+}
+
+.cell.filled {
+  background: #1c1c3a;
+  color: #888;
+}
+
+/* ── Buttons ── */
+#controls {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  padding: 10px 28px;
+  font-size: 1rem;
+  background: #0f3460;
+  color: #eee;
+  border: 1px solid #4fc3f7;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+button:hover:not(:disabled) { background: #1565c0; }
+button:disabled { opacity: 0.4; cursor: default; }
+
+.btn-secondary {
+  background: transparent;
+  border-color: #555;
+  color: #aaa;
+}
+.btn-secondary:hover:not(:disabled) { background: #222; color: #eee; }
+
+/* ── How to Play (lobby collapsible) ── */
+#how-to-play-toggle {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: underline;
+}
+#how-to-play-toggle:hover { color: #eee; background: none; }
+
+#how-to-play-content {
+  display: none;
+  max-width: 340px;
+  background: #16213e;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ccc;
+  text-align: left;
+}
+#how-to-play-content h3 {
+  margin: 0 0 10px;
+  color: #4fc3f7;
+  font-size: 1rem;
+}
+#how-to-play-content ol {
+  margin: 0;
+  padding-left: 18px;
+}
+#how-to-play-content li {
+  margin-bottom: 6px;
+}
+
+/* ── Rules overlay (in-game ? button) ── */
+#rules-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+#rules-overlay.open { display: flex; }
+
+#rules-box {
+  background: #16213e;
+  border: 1px solid #4fc3f7;
+  border-radius: 10px;
+  padding: 24px 28px;
+  max-width: 360px;
+  width: 90%;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ccc;
+  position: relative;
+}
+#rules-box h3 {
+  margin: 0 0 12px;
+  color: #4fc3f7;
+  font-size: 1.1rem;
+}
+#rules-box ol {
+  margin: 0;
+  padding-left: 18px;
+}
+#rules-box li { margin-bottom: 6px; }
+
+#rules-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+}
+#rules-close:hover { color: #eee; background: none; }
+
+#btn-rules {
+  background: none;
+  border: 1px solid #555;
+  color: #aaa;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+}
+#btn-rules:hover { background: #222; color: #eee; }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piège Cent</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <h1>PIÈGE CENT</h1>
+  <div id="status">Welcome</div>
+
+  <!-- LOBBY -->
+  <div id="lobby">
+    <input id="name-input" placeholder="Your name" maxlength="20" />
+
+    <button onclick="createRoom()">Create New Game</button>
+
+    <div style="color:#888; margin-top:4px">— or join a friend's game —</div>
+
+    <input id="join-input" placeholder="ROOM CODE" maxlength="4" />
+    <button onclick="joinRoom()">Join Game</button>
+
+    <button id="how-to-play-toggle" onclick="toggleHowToPlay()">How to play</button>
+    <div id="how-to-play-content"></div>
+
+    <div id="room-display" style="display:none; text-align:center; margin-top:8px">
+      <div style="color:#888; font-size:0.9rem; margin-bottom:6px">Share this with your friend:</div>
+      <div id="room-code"></div>
+      <button class="btn-secondary" style="margin-top:10px; font-size:0.9rem; padding:6px 16px" onclick="copyLink()">
+        Copy Link
+      </button>
+      <div style="color:#888; font-size:0.9rem; margin-top:10px">Waiting for opponent…</div>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div id="game">
+    <div id="scoreboard">
+      <div class="score-block me">
+        <div class="score-name" id="my-name">You</div>
+        <div class="score-value" id="my-score">0</div>
+      </div>
+      <div class="score-block">
+        <div class="score-name" id="opp-name">Opponent</div>
+        <div class="score-value" id="opp-score">0</div>
+      </div>
+    </div>
+
+    <div id="grid"></div>
+
+    <div id="controls">
+      <button id="btn-new-game" onclick="requestRestart()" style="display:none">New Game</button>
+      <button id="btn-rules" onclick="openRules()">?</button>
+      <button class="btn-secondary" onclick="leaveRoom()">Back to Lobby</button>
+    </div>
+  </div>
+
+  <!-- RULES OVERLAY -->
+  <div id="rules-overlay" onclick="closeRulesIfOutside(event)">
+    <div id="rules-box">
+      <button id="rules-close" onclick="closeRules()">✕</button>
+      <div id="rules-box-content"></div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/constants.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>
